@@ -1,0 +1,238 @@
+// 1. Floyd-Warshall Algorithm
+for (int k = 0; k < n; ++k) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            d[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]);
+        }
+    }
+}
+
+// 2. Trie Implementation
+class TrieNode {
+    TrieNode[] children = new TrieNode[ALPHABET_SIZE];
+    boolean isEndOfWord;
+}
+
+public TrieNode getNode() {
+    TrieNode pNode = new TrieNode();
+    pNode.isEndOfWord = false;
+    Arrays.fill(pNode.children, null);
+    return pNode;
+}
+
+public void insert(TrieNode root, String key) {
+    TrieNode pCrawl = root;
+    for (int i = 0; i < key.length(); i++) {
+        int index = key.charAt(i) - 'a';
+        if (pCrawl.children[index] == null)
+            pCrawl.children[index] = getNode();
+        pCrawl = pCrawl.children[index];
+    }
+    pCrawl.isEndOfWord = true;
+}
+
+public boolean search(TrieNode root, String key) {
+    TrieNode pCrawl = root;
+    for (int i = 0; i < key.length(); i++) {
+        int index = key.charAt(i) - 'a';
+        if (pCrawl.children[index] == null)
+            return false;
+        pCrawl = pCrawl.children[index];
+    }
+    return pCrawl.isEndOfWord;
+}
+
+// 3. Union-Find Algorithm
+public void makeSet(int v) {
+    parent[v] = v;
+    size[v] = 1;
+}
+
+public void unionSets(int a, int b) {
+    a = findSet(a);
+    b = findSet(b);
+    if (a != b) {
+        if (size[a] < size[b])
+            swap(a, b);
+        parent[b] = a;
+        size[a] += size[b];
+    }
+}
+
+public int findSet(int v) {
+    if (v == parent[v])
+        return v;
+    parent[v] = findSet(parent[v]);
+    return parent[v];
+}
+
+// 4. Longest Increasing Subsequence (O(n log n))
+public int lengthOfLIS(int[] nums) {
+    int n = nums.length;
+    List<Integer> increasing = new ArrayList<>();
+    for (int idx = 0; idx < n; idx++) {
+        if (increasing.isEmpty())
+            increasing.add(nums[idx]);
+        else {
+            if (nums[idx] > increasing.get(increasing.size() - 1))
+                increasing.add(nums[idx]);
+            int index_ = Collections.binarySearch(increasing, nums[idx]);
+            if (index_ < 0) index_ = -(index_ + 1);
+            increasing.set(index_, nums[idx]);
+        }
+    }
+    return increasing.size();
+}
+
+// 5. Kosaraju Algorithm (Strongly Connected Components)
+List<List<Integer>> adj = new ArrayList<>();
+List<List<Integer>> adjRev = new ArrayList<>();
+boolean[] used;
+List<Integer> order = new ArrayList<>();
+List<Integer> component = new ArrayList<>();
+
+public void dfs1(int v) {
+    used[v] = true;
+    for (int u : adj.get(v))
+        if (!used[u])
+            dfs1(u);
+    order.add(v);
+}
+
+public void dfs2(int v) {
+    used[v] = true;
+    component.add(v);
+    for (int u : adjRev.get(v))
+        if (!used[u])
+            dfs2(u);
+}
+
+public void kosaraju(int n) {
+    used = new boolean[n];
+    for (int i = 0; i < n; i++)
+        if (!used[i])
+            dfs1(i);
+
+    Arrays.fill(used, false);
+    Collections.reverse(order);
+
+    for (int v : order) {
+        if (!used[v]) {
+            dfs2(v);
+            component.clear();
+        }
+    }
+}
+
+// 6. Priority Queue Comparator
+class Compare implements Comparator<int[]> {
+    public int compare(int[] a, int[] b) {
+        if (a[0] < b[0])
+            return 1;
+        else if (a[0] == b[0])
+            return Integer.compare(a[1], b[1]);
+        return -1;
+    }
+}
+
+// 7. Sieve of Eratosthenes (Find Primes)
+int n;
+boolean[] isPrime = new boolean[n + 1];
+Arrays.fill(isPrime, true);
+isPrime[0] = isPrime[1] = false;
+for (int i = 2; i <= n; i++) {
+    if (isPrime[i] && (long) i * i <= n) {
+        for (int j = i * i; j <= n; j += i)
+            isPrime[j] = false;
+    }
+}
+
+// 8. Z-Array
+String str;
+int n = str.length();
+int[] z = new int[n];
+int l = 0, r = 0;
+for (int idx = 1; idx < n; idx++) {
+    if (idx < r) {
+        int k = idx - l;
+        if (z[k] < r - idx + 1)
+            z[idx] = z[k];
+        else {
+            l = idx;
+            while (r < n && str.charAt(r) == str.charAt(r - l))
+                r++;
+            z[idx] = r - l;
+            r--;
+        }
+    } else {
+        l = r = idx;
+        while (r < n && str.charAt(r) == str.charAt(r - l))
+            r++;
+        z[idx] = r - l;
+        r--;
+    }
+}
+
+// 9. Lambda Comparator
+List<Integer> a = Arrays.asList(5, 3, 8, 1);
+a.sort((Integer x, Integer y) -> y - x);
+
+// 10. Character to Integer
+char ch = '9';
+int num = ch - '0';
+
+// 11. To Upper Case and Lowercase
+char ch = 'a';
+ch = Character.toUpperCase(ch);
+ch = Character.toLowerCase(ch);
+
+// 12. Check if Character is a Digit
+char ch = '9';
+boolean isDigit = Character.isDigit(ch);
+
+// 13. String Find
+String str = "hello";
+char ch = 'e';
+if (str.indexOf(ch) != -1) {
+    System.out.println("Character found at index: " + str.indexOf(ch));
+}
+
+// 14. Validate Postfix Expression
+// First two elements are values, last element is operator, and n - 1 operators
+
+// 15. Split String on Space
+public void simpleTokenizer(String s) {
+    String[] words = s.split(" ");
+    for (String word : words) {
+        System.out.println(word);
+    }
+}
+
+// 16. Split String on Delimiter
+public void delimTokenizer(String s, char del) {
+    String[] words = s.split(String.valueOf(del));
+    for (String word : words) {
+        System.out.println(word);
+    }
+}
+
+// 17. Iterator
+TreeSet<Integer> set = new TreeSet<>();
+Iterator<Integer> medianItr = set.iterator();
+
+// 18. Random Number Generator
+Random rand = new Random();
+int random = rand.nextInt();
+
+// 19. Ordered Set (TreeSet)
+TreeSet<Integer> st = new TreeSet<>();
+st.add(10);
+st.add(5);
+st.add(20);
+
+System.out.println("Order of key 10: " + st.headSet(10).size());
+System.out.println("Find element by order (2nd element): " + st.toArray()[1]);
+
+// 20. Insert into Multiset (TreeMap)
+TreeMap<Integer, Integer> multiset = new TreeMap<>();
+multiset.put(5, multiset.getOrDefault(5, 0) + 1);
