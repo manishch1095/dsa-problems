@@ -1,1 +1,1 @@
-Just practsing some leetcode !
+Just practising some leetcode !
