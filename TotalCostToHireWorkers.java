@@ -50,8 +50,7 @@ class Solution {
             pq2.add(new pair(costs[j], j));
         }
 
-
-        int totalCost = 0;
+        long totalCost = 0;
         while(k > 0) {
             PriorityQueue<pair> rs;
 

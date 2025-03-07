@@ -48,7 +48,7 @@ class TreeNode {
                 inOrder(root.right);
             }
          }
-     }
+}
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         
@@ -67,6 +67,7 @@ class Solution {
                 TreeNode curr = q.poll();
                 if(i == 0) {
                     System.out.println(curr.val);
+                    ans.add(curr.val);
                 }
                 if(curr.right != null)
                     q.offer(curr.right);

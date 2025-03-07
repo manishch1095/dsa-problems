@@ -81,7 +81,7 @@ class Solution {
 
             visited[row][col] = true;
 
-            System.out.println(row + ' ' + col);
+            // System.out.println(row + ' ' + col);
 
             for(int i = 0; i < 4; i++) 
             {

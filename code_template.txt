@@ -236,3 +236,39 @@ System.out.println("Find element by order (2nd element): " + st.toArray()[1]);
 // 20. Insert into Multiset (TreeMap)
 TreeMap<Integer, Integer> multiset = new TreeMap<>();
 multiset.put(5, multiset.getOrDefault(5, 0) + 1);
+
+
+
+// 21. TreeNode and make from Array
+
+class TreeNode {
+
+    Integer val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(Integer val) {
+        this.val = val;
+    }
+
+    TreeNode(Integer val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+
+     public static TreeNode buildTreeFromArray(List<Integer> arr, int index) {
+        if (arr == null || arr.size() == 0 || index >= arr.size() || arr.get(index) == null) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(arr.get(index));
+
+        root.left = buildTreeFromArray(arr, 2 * index + 1);
+        root.right = buildTreeFromArray(arr, 2 * index + 2);
+
+        return root;
+
+    }
+}
+
