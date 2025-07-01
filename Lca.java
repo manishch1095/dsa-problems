@@ -1,16 +1,19 @@
-
 import java.util.Arrays;
 import java.util.List;
 
 public class Lca {
     public static void main(String[] args) {
+        // Print current working directory
+        String currentDir = System.getProperty("user.dir");
+        System.out.println("Current working directory: " + currentDir);
+        
         TreeNode root = TreeNode.buildTreeFromArray(Arrays.asList(3,5,1,6,2,0,8,null,null,7,4), 0);
         Solution solution = new Solution();
         solution.lowestCommonAncestor(root, root.left.left, root.right.left);
     }
 }
-class Solution {
 
+class Solution {
     TreeNode ans = null;
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {

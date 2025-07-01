@@ -3,23 +3,22 @@ import java.util.List;
 
 public class GenerateParantheses {
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        solution.generateParenthesis(3);
-    }
-}
-
-
-class Solution {
-
     List<String> ans = new ArrayList<>();
+    public static void main(String[] args) {
+        GenerateParantheses solution = new GenerateParantheses();
+        List<String> ans = solution.generateParenthesis(3);
+        for(String s : ans) {
+            System.out.println(s);
+        }
+    }
+
 
     public List<String> generateParenthesis(int n) {
         backtrack("", 0, 0, n);
         return ans;
     }
 
-    public void backtrack(String s, int left , int right, int n) {   
+    public void backtrack(String s, int left , int right, int n) {
 
         if(left == right && left == n) {
             ans.add(s);

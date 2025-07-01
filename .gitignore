@@ -1,1 +1,53 @@
+# IDE and Editor files
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Java compiled files
+*.class
+bin/
+out/
+target/
+
+# Build directories
+build/
+dist/
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+gradlew
+gradlew.bat
+
+# Tool versions
+.tool-versions
+
+# Custom entries
+bing
